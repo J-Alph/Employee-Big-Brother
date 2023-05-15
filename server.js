@@ -2,7 +2,7 @@ const express = require('express');
 // Import and require mysql2
 const mysql = require('mysql2');
 
-import {mypass} from 'env';
+// import {mypass} from 'env';
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -16,7 +16,7 @@ const db = mysql.createConnection(
   {
     host: 'localhost',
     user: 'root',
-    password: mypass,
+    password: "Flush@13",
     database: 'books_db'
   },
   console.log(`Connected to the books_db database.`)
