@@ -1,14 +1,15 @@
 const inquirer = require('inquirer');
+const viewEmployee = require('./utils/answerchoices')
 
-inquirer
-  .prompt([
+const questions = [
     {
       type: 'list',
       message: 'what would you like to do?',
-      name: 'employeroptions',
+      name: 'options',
       choices: ["View all employees" ,"add employee" , "update Employee" , "view all roles", "add role", "view all departments"
-                , "add department"]
-    },
+                , "add department"],
+    }
+    ,
     {
       type: 'password',
       message: 'What is your password?',
@@ -19,9 +20,16 @@ inquirer
       message: 'Re-enter password to confirm:',
       name: 'confirm',
     },
-  ])
-  .then((response) =>
-    response.confirm === response.password
-      ? console.log('Success!')
-      : console.log('You forgot your password already?!')
-  );
+  ]
+  function runPrompt (){
+    return inquirer.prompt(questions)
+        .then ((answers) => {
+            const info = viewEmployee(answers)
+          console.log(info);
+        }
+
+
+)
+}
+
+runPrompt();

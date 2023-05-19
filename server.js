@@ -17,10 +17,65 @@ const db = mysql.createConnection(
     host: 'localhost',
     user: 'root',
     password: "Flush@13",
-    database: 'books_db'
+    database: 'staff_db'
   },
   console.log(`Connected to the books_db database.`)
 );
+
+app.get('/db/seeds', (req, res) =>{
+  const bodyInfo = req.body;
+  console.log (bodyInfo);
+
+  res.json({
+    message: 'something posted',
+    data: bodyInfo,
+  });
+});
+
+
+app.post('/api/staff', (req, res) => {
+  const staffData = req.body;
+  console.log(staffData);
+
+  const query = 'INSERT INTO department (name) VALUES (?)';
+  const departmentArgs = staffData.department_name;
+
+  db.query(query, departmentArgs, (err, result) => {
+    if(err) {
+
+      res.status(400).json({
+        message: 'deparment is bad',
+        data: err,
+      });
+      console.err(err);
+     }else {
+        res.json({
+    message: 'Something good',
+    data: staffData,
+  });
+     }
+  });
+});
+
+app.get('/api/employee', (req,res) =>{
+  const query = `SELECT id, first_name FROM employee`;
+
+
+  db.query(query, (err, result) => {
+    if(err) {
+      console.log(err);
+      res.status(500).json({
+        message: 'error getting employees',
+        data: err,
+      })      
+     }else {
+        res.json({
+         data: result,
+  });
+     }
+  });
+
+})
 
 // Query database
 
