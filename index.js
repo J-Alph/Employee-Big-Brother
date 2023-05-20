@@ -10,16 +10,7 @@ const questions = [
                 , "add department"],
     }
     ,
-    {
-      type: 'password',
-      message: 'What is your password?',
-      name: 'password',
-    },
-    {
-      type: 'password',
-      message: 'Re-enter password to confirm:',
-      name: 'confirm',
-    },
+    
   ]
   function runPrompt (){
     return inquirer.prompt(questions)
