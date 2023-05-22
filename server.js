@@ -1,18 +1,13 @@
-const express = require("express");
+
 // Import and require mysql2
 const mysql = require("mysql2");
 const pass = require('dotenv').config();
 
 const inquirer = require("inquirer");
 
-// import {mypass} from 'env';
 
-const PORT = process.env.PORT || 3002;
-const app = express();
 
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
 
 // Connect to database
 const db = mysql.createConnection(
@@ -24,6 +19,9 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the books_db database.`)
 );
+
+async function workdb(){
+
 
 const questions = [
   {
@@ -39,14 +37,17 @@ const questions = [
       "view all departments",
       "add department",
       "delete an employee",
+      "salary budget"
     ],
   },
 ];
+
 
 inquirer.prompt(questions).then((answers) => {
   if (answers.options === "View all employees") {
     db.query("SELECT * FROM employee", function (err, results) {
       return console.table(results);
+      
     });
   }
 
@@ -139,13 +140,13 @@ inquirer.prompt(questions).then((answers) => {
     {
       type: "input",
       name: "roleupdate",
-      message: "What is the new role to update?",
+      message: "What new role would you like to add ? ",
     },
 
     {
       type: "input",
       name: "roleid",
-      message: "Which role id would like to update?",
+      message: "Which role id would you like to update?",
     },
   ];
 
@@ -169,7 +170,7 @@ inquirer.prompt(questions).then((answers) => {
     {
       type: "input",
       name: "delete",
-      message: "Which employee would you like to delete?",
+      message: "Which employee(id) would you like to delete?",
     },
   ];
 
@@ -188,4 +189,21 @@ inquirer.prompt(questions).then((answers) => {
       );
     });
   }
+
+  if (answers.options === "salary budget") {
+    db.query('SELECT SUM(salary) FROM roles',(err, result) =>{
+      if(err) {
+        console.log(err);
+      }
+      console.table(result);
+    }
+    )
+
+  }
+
+
+  
 }); //the whole block
+
+}
+workdb();
