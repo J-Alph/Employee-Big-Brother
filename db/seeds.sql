@@ -11,14 +11,14 @@ VALUES ("Sales"),
 
 
 
-INSERT INTO roles (title, salary)
-VALUES ("Manager", 100000),
-       ("AsstManager", 90000),
-       ("Third", 60000),
-       ("floormanager", 60000),
-       ("emplevel3", 50000),
-       ("emplevel2", 40000),
-       ("emplevel1", 30000);
+INSERT INTO roles (title, salary, department_id)
+VALUES ("Manager", 100000, 1 ),
+       ("AsstManager", 90000, 2),
+       ("Third", 60000, 3),
+       ("floormanager", 60000, 3),
+       ("emplevel3",  50000, 4),
+       ("emplevel2", 40000, 6),
+       ("emplevel1", 30000, 7);
 
 
 
